@@ -14,7 +14,8 @@ def unit_file_state(service_name) -> (str | None):
         
         
         return data["UnitFileState"]
-    except subprocess.CalledProcessError:
-        return None
-    except Exception:
-        return None
+    except subprocess.CalledProcessError as e:
+        from pysysctllib.modules.systemctl.exc import returncodes_map
+        if e.returncode in returncodes_map:
+            raise returncodes_map[e.returncode]() from e
+        raise

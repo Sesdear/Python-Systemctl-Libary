@@ -10,7 +10,7 @@ class Systemctl:
             **kwargs: Optional parameters
                 parameter: Service parameter name for the `show` method
                 |mode: Mode name for the `is_failed`, `is_enabled`, `is_active` methods|
-                |    modes: single (default), pattern               in progress...     |
+                |modes: single (default), pattern               in progress...         |
         """
         self.service_name = service_name
         self.value = kwargs.get("parameter", "")
@@ -25,7 +25,7 @@ class Systemctl:
         Returns:
             bool: True if the service started successfully, False otherwise.
         """
-        from .modules.unit.start import start
+        from .modules.systemctl.unit.start import start
         return start(self.service_name)
 
     def stop(self) -> bool:
@@ -35,7 +35,7 @@ class Systemctl:
         Returns:
             bool: True if the service stopped successfully, False otherwise.
         """
-        from .modules.unit.stop import stop
+        from .modules.systemctl.unit.stop import stop
         return stop(self.service_name)
 
     def restart(self) -> bool:
@@ -45,7 +45,7 @@ class Systemctl:
         Returns:
             bool: True if the service restarted successfully, False otherwise.
         """
-        from .modules.unit.restart import restart
+        from .modules.systemctl.unit.restart import restart
         return restart(self.service_name)
 
     def enable(self) -> bool:
@@ -55,7 +55,7 @@ class Systemctl:
         Returns:
             bool: True if the service was enabled successfully, False otherwise.
         """
-        from .modules.unit_file.enable import enable
+        from .modules.systemctl.unit.enable import enable
         return enable(self.service_name)
 
     def disable(self) -> bool:
@@ -65,7 +65,7 @@ class Systemctl:
         Returns:
             bool: True if the service was disabled successfully, False otherwise.
         """
-        from .modules.unit_file.disable import disable
+        from .modules.systemctl.unit.disable import disable
         return disable(self.service_name)
     
     def reload(self) -> bool:
@@ -75,7 +75,7 @@ class Systemctl:
         Returns:
             bool: True if the service was reloaded successfully, False otherwise.
         """
-        from .modules.unit.reload import reload
+        from .modules.systemctl.unit.reload import reload
         return reload(self.service_name)
 
     def mask(self) -> bool:
@@ -85,7 +85,7 @@ class Systemctl:
         Returns:
             bool: True if the service was masked successfully, False otherwise.
         """
-        from .modules.unit_file.mask import mask
+        from .modules.systemctl.unit.mask import mask
         return mask(self.service_name)
 
     def unmask(self) -> bool:
@@ -95,7 +95,7 @@ class Systemctl:
         Returns:
             bool: True if the service was unmasked successfully, False otherwise.
         """
-        from .modules.unit_file.unmask import unmask
+        from .modules.systemctl.unit.unmask import unmask
         return unmask(self.service_name)
 #------------------------------------------------------
 #is methods
@@ -107,7 +107,7 @@ class Systemctl:
         Returns:
             bool: True if the service is enabled, False otherwise.
         """
-        from .modules.unit_file.is_enabled import is_enabled
+        from .modules.systemctl.unit.is_enabled import is_enabled
         return is_enabled(self.service_name)
 
     def is_active(self) -> bool:
@@ -117,7 +117,7 @@ class Systemctl:
         Returns:
             bool: True if the service is active, False otherwise.
         """
-        from .modules.unit.is_active import is_active
+        from .modules.systemctl.unit.is_active import is_active
         return is_active(self.service_name)
 
     def is_masked(self) -> bool:
@@ -127,7 +127,7 @@ class Systemctl:
         Returns:
             bool: True if the service is masked, False otherwise.
         """
-        from .modules.unit_file.is_masked import is_masked
+        from .modules.systemctl.unit.is_masked import is_masked
         return is_masked(self.service_name)
 #------------------------------------------------------
 #other methods
@@ -149,7 +149,7 @@ class Systemctl:
         Returns:
             list: List of service dependencies.
         """
-        from .modules.unit.list_dependencies import list_dependencies
+        from .modules.systemctl.unit.list_dependencies import list_dependencies
         return list_dependencies(self.service_name)
 
     def properites(self) -> dict:
@@ -164,7 +164,7 @@ class Systemctl:
         
         
         """
-        from .modules.unit.properties import show
+        from .modules.systemctl.unit.properties import show
         return show(name=self.service_name)
     def status(self) -> (StatusModel | None):
         """
@@ -173,7 +173,7 @@ class Systemctl:
         Returns:
             StatusModel: model with active state, unit file state, service path, sub state and main pid
         """
-        from .modules.unit.status import status
+        from .modules.systemctl.unit.status import status
         return status(service_name=self.service_name)
     def unit_file_state(self) -> (str | None):
         """
@@ -182,14 +182,14 @@ class Systemctl:
         Returns:
             str: enabled, disabled, masked
         """
-        from .modules.unit.unit_file_state import unit_file_state
+        from .modules.systemctl.unit.unit_file_state import unit_file_state
         return unit_file_state(service_name=self.service_name)
-    def main_pid(self) -> (str | None):
+    def main_pid(self) -> (int | None):
         """
         Return main pid of unit
 
         Returns:
-            str: main pid
+            int: main pid
         """
-        from .modules.unit.main_pid import main_pid
+        from .modules.systemctl.unit.main_pid import main_pid
         return main_pid(service_name=self.service_name)

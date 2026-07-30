@@ -1,11 +1,10 @@
-def reload_daemon() -> bool:
+def start(name):
     import subprocess
     import os
+    from pysysctllib.modules.systemctl.exc import returncodes_map
     
-    if os.geteuid() != 0:
-        return False
     try:
-        subprocess.run(['systemctl', 'daemon-reload'], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        subprocess.run(['systemctl', 'start', name], check=True)
         return True
     except subprocess.CalledProcessError as e:
         from pysysctllib.modules.systemctl.exc import returncodes_map

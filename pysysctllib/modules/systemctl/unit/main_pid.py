@@ -1,4 +1,4 @@
-def main_pid(service_name: str):
+def main_pid(service_name: str) -> int:
     import subprocess
     
     try:
@@ -13,8 +13,9 @@ def main_pid(service_name: str):
             data[key] = value
         
         
-        return data["MainPID"]
-    except subprocess.CalledProcessError:
-        return None
-    except Exception:
-        return None
+        return int(data["MainPID"])
+    except subprocess.CalledProcessError as e:
+        from pysysctllib.modules.systemctl.exc import returncodes_map
+        if e.returncode in returncodes_map:
+            raise returncodes_map[e.returncode]() from e
+        raise

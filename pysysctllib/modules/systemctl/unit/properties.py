@@ -28,7 +28,8 @@ def show(name: str):
         
         return info
     except subprocess.CalledProcessError as e:
-        return {}
-    except Exception:
-        return {}
+        from pysysctllib.modules.systemctl.exc import returncodes_map
+        if e.returncode in returncodes_map:
+            raise returncodes_map[e.returncode]() from e
+        raise
 
