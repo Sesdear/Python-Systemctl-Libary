@@ -39,7 +39,7 @@ pip install pysysctllib-*.whl
 
 ## Environment
 
-* Python >= 3.7
+* Python >= 3.11
 * Linux with systemd
 * `systemctl` available
 * Appropriate privileges for service control
