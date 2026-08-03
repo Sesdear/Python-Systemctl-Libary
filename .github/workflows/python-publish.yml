@@ -1,14 +1,20 @@
 name: Upload Python Package
 
 on:
-  release:
-    types: [published]
+  workflow_run:
+    workflows: ["Tests"]
+    types:
+      - completed
 
 permissions:
   contents: read
 
 jobs:
   release-build:
+    if: >
+      github.event.workflow_run.conclusion == 'success' &&
+      github.event.workflow_run.event == 'push' &&
+      github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
 
     steps:
