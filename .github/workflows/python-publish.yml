@@ -17,8 +17,13 @@ jobs:
       github.event.workflow_run.head_branch == 'main'
     runs-on: ubuntu-latest
 
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - uses: actions/setup-python@v5
         with:
@@ -26,6 +31,9 @@ jobs:
 
       - name: Install Poetry
         run: pip install poetry
+      
+      - id: version
+        run: echo "version=v$(poetry version --short)" >> "$GITHUB_OUTPUT"
       
       - name: Install dependencies
         run: poetry install
@@ -48,6 +56,8 @@ jobs:
 
       - name: Checkout Code
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha }}
 
       - name: Retrieve release distributions
         uses: actions/download-artifact@v4
@@ -60,11 +70,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         run: |
-          TAG=v$(poetry version --short)
-          gh release create "$TAG" \
+          gh release create "${{ needs.release-build.outputs.version }}" \
             dist/* \
-            --repo="$GITHUB_REPOSITORY" \
-            --title="$TAG" \
+            --title "${{ needs.release-build.outputs.version }}" \
             --generate-notes
 
   pypi-publish:
