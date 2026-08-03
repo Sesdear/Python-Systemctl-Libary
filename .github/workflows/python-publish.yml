@@ -55,15 +55,12 @@ jobs:
           name: release-dists
           path: dist/
 
-      - name: Get current version
-        run: |
-          echo "TAG=v$(poetry version --short)" >> $GITHUB_ENV
-
       - name: Publish GitHub Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
         run: |
+          TAG=v$(poetry version --short)
           gh release create "$TAG" \
             dist/* \
             --repo="$GITHUB_REPOSITORY" \
