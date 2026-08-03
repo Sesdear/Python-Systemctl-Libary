@@ -1,4 +1,4 @@
-from pysysctllib.modules.systemctl.exc.exceptions import *
+from pysysctllib.exc.exceptions import *
 
 __all__ = [
     "GenricError",

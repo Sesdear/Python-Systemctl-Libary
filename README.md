@@ -50,19 +50,14 @@ pip install pysysctllib-*.whl
 
 ```python
 from pysysctllib import Systemctl
+from pysysctllib.exc import PermissonError
 
 svc = Systemctl("nginx.service")
-
-if svc.start():
-    print("Start success!")
-
-print(svc.is_active())
-
-svc.restart()
-
-props = svc.properites()
-
-print(props["Description"])
+try:
+  if svc.start():
+      print("Start success!")
+except PermssionError as e:
+  print("Permission Error")
 
 ```
 
@@ -106,6 +101,14 @@ Service unit controller bound to a specific systemd unit name.
 
 * `reload_daemon() -> bool`
 
+### Exceptions
+* `GenricError` - Genric error. More often means, what serice down in start.
+* `NoSuchService` - Serice with follow name doesn't exist in system (Does not exist `.service` file)
+* `NotInstalled` - Program or configuration of service ot installed
+* `NotConfigured` - Service not configured
+* `NotRunningOrRefused` - Link to program not work or request to start rejected by manager
+* `PermissionError` - Dont have permissons
+* `FileNotFound` - Starting file not found
 ---
 
 ## License

@@ -6,12 +6,12 @@ from pysysctllib.exc import (
     NotInstalled,
     NotRunningOrRefused,
     PermissionError,
-    returncodes_map,
+    Exceptions,
 )
 
 
 def test_returncodes_map_exports_known_systemctl_exceptions():
-    assert returncodes_map == {
+    assert Exceptions == {
         1: GenricError,
         4: NoSuchService,
         5: NotInstalled,
