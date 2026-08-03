@@ -51,13 +51,14 @@ pip install pysysctllib-*.whl
 ```python
 from pysysctllib import Systemctl
 from pysysctllib.exc import PermissonError
+from logging import error, info
 
-svc = Systemctl("nginx.service")
+svc = Systemctl("sshd.service")
 try:
   if svc.start():
-      print("Start success!")
+      info("Service Start")
 except PermssionError as e:
-  print("Permission Error")
+  error(e.code)
 
 ```
 
