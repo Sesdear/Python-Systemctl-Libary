@@ -12,7 +12,8 @@
 </p>
 
 
-Python library providing a direct interface to **systemd** via `systemctl` for service management and inspection.
+Python library providing a direct interface to **systemd** via `systemctl` for service management and inspection, providing methods to create new systemd unit files.
+
 
 
 ---
@@ -47,7 +48,7 @@ pip install pysysctllib-*.whl
 ---
 
 ## Basic Usage
-
+### Actions with exist service
 ```python
 from pysysctllib import Systemctl
 from pysysctllib.exc import PermissonError
@@ -61,35 +62,82 @@ except PermssionError as e:
   error(e.code)
 
 ```
+### Create new service
+```python
+from pysysctllib import Sysremctl, Systemd
+from pysysctllib.exc import PermissonError
+from pysysctllib.models import UnitModel, UnitPathType
+from logging import info, error
+
+def create_model()
+  model = UnitModel()
+  model.filename = "test.service"
+  model.Unit.Description = "Test service"
+  model.Unit.After = "network.target"
+  model.Service.Type = "simple"
+  model.Service.User = "root"
+  model.Service.WorkingDirectory = "/tmp"
+  model.Service.ExecStart = "/bin/sleep 10"
+  model.Service.Restart = "on-failure"
+  model.Service.RestartSec = 5
+  model.Install.WantedBy = "multi-user.target"
+  model.path_type = UnitPathType.TEMP_SYSTEM
+  return model
+
+sysd = Systemd()
+sysctl = Systemctl(test.service)
+model = create_model()
+try: 
+  if sysd.unit.create(model):
+    if sysctl.start():
+      info("Start Success!")
+except PermissionError:
+  error("PermissonError, access denied")
+
+```
 
 ---
 
 ## API
+### `Systemd()`
+
+Unit files controller, specific for operations with unit files
+
+#### Operations
+* `create() -> bool`
+
+#### UnitPathTypes
+`SYSTEM`: `/etc/systemd/system/`
+`USER`: `~/.config/systemd/user/`
+`SYSTEM_PM`: `/lib/systemd/system/`
+`USER_PM`: `/usr/lib/systemd/user/`
+`TEMP_SYSTEM`: `/run/systemd/system/`
+`TEMP_USER`: `/run/systemd/user/`
 
 ### `Systemctl(service_name: str)`
 
 Service unit controller bound to a specific systemd unit name.
 
-### Lifecycle Operations
+#### Lifecycle Operations
 
 * `start() -> bool`
 * `stop() -> bool`
 * `restart() -> bool`
 * `reload() -> bool`
 
-### Enablement
+#### Enablement
 
 * `enable() -> bool`
 * `disable() -> bool`
 * `is_enabled() -> bool`
 
-### Masking
+#### Masking
 
 * `mask() -> bool`
 * `unmask() -> bool`
 * `is_masked() -> bool`
 
-### State and Metadata
+#### State and Metadata
 
 * `properties() -> dict` 
 * `status() -> StatusModel`
@@ -98,11 +146,11 @@ Service unit controller bound to a specific systemd unit name.
 * `unit_file_state() -> str`
 * `list_dependencies() -> list`
 
-### systemd Manager
+#### systemd Manager
 
 * `reload_daemon() -> bool`
 
-### Exceptions
+#### Exceptions
 * `GenricError` - Genric error. More often means, what serice down in start.
 * `NoSuchService` - Serice with follow name doesn't exist in system (Does not exist `.service` file)
 * `NotInstalled` - Program or configuration of service ot installed
@@ -112,7 +160,9 @@ Service unit controller bound to a specific systemd unit name.
 * `FileNotFound` - Starting file not found
 ---
 ## ToDo
-- [ ] Create unit files from code
+- [X] Create unit files from code
+- [ ] Delete existing systemd units
+- [ ] Modify existing systemd units
 ---
 
 ## License
