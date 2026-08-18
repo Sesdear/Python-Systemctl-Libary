@@ -6,7 +6,7 @@ tests.py
 todo.md
 # C extensions
 *.so
-
+file_for_test.py
 # Distribution / packaging
 .Python
 build/

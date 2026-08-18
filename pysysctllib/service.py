@@ -1,4 +1,14 @@
-from pysysctllib.models import StatusModel
+from pysysctllib.models import StatusModel, UnitModel
+
+class _Unit:
+    def create(self, unit_model: UnitModel):
+        from pysysctllib.modules.systemd.unit.create import create
+        return create(unit_model)
+
+
+class Systemd:
+    def __init__(self):
+        self.unit = _Unit()
 
 class Systemctl:
     def __init__(self, service_name: str, **kwargs):

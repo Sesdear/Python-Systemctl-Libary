@@ -20,6 +20,8 @@ class PermissionError(Exception):
 class FileNotFound(Exception):
     """Starting file not found"""
     code: int = 127
+class FileExistsError(Exception):
+    code: int = 17
 
 Exceptions: dict = {
     1: GenricError,
