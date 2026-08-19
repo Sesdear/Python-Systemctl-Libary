@@ -105,6 +105,7 @@ Unit files controller, specific for operations with unit files
 
 #### Operations
 * `create() -> bool`
+* `delete() -> bool | None`
 
 #### UnitPathTypes
 `SYSTEM`: `/etc/systemd/system/` \
@@ -161,7 +162,7 @@ Service unit controller bound to a specific systemd unit name.
 ---
 ## ToDo
 - [X] Create unit files from code
-- [ ] Delete existing systemd units
+- [X] Delete existing systemd units
 - [ ] Modify existing systemd units
 ---
 
