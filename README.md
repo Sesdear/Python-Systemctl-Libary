@@ -51,21 +51,21 @@ pip install pysysctllib-*.whl
 ### Actions with exist service
 ```python
 from pysysctllib import Systemctl
-from pysysctllib.exc import PermissonError
+from pysysctllib.exc import PermissionError
 from logging import error, info
 
 svc = Systemctl("sshd.service")
 try:
   if svc.start():
       info("Service Start")
-except PermssionError as e:
+except PermissionError as e:
   error(e.code)
 
 ```
 ### Create new service
 ```python
 from pysysctllib import Sysremctl, Systemd
-from pysysctllib.exc import PermissonError
+from pysysctllib.exc import PermissionError
 from pysysctllib.models import UnitModel, UnitPathType
 from logging import info, error
 
@@ -152,12 +152,12 @@ Service unit controller bound to a specific systemd unit name.
 * `reload_daemon() -> bool`
 
 #### Exceptions
-* `GenricError` - Genric error. More often means, what serice down in start.
-* `NoSuchService` - Serice with follow name doesn't exist in system (Does not exist `.service` file)
+* `GenericError` - Generic error. More often means, what serice down in start.
+* `NoSuchService` - Service with follow name doesn't exist in system (Does not exist `.service` file)
 * `NotInstalled` - Program or configuration of service ot installed
 * `NotConfigured` - Service not configured
 * `NotRunningOrRefused` - Link to program not work or request to start rejected by manager
-* `PermissionError` - Dont have permissons
+* `PermissionError` - Not enough permissions
 * `FileNotFound` - Starting file not found
 ---
 ## ToDo
