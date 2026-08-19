@@ -1,6 +1,6 @@
 [project]
 name = "pysysctllib"
-version = "0.2.3"
+version = "0.2.4"
 description = "Simple libarary for controlling systemd services"
 authors = [
     {name = "hlnikniky",email = "orekhovs09@gmail.com"}
