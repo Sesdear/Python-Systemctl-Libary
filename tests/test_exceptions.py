@@ -1,6 +1,6 @@
 from pysysctllib.exc import (
     FileNotFound,
-    GenricError,
+    GenericError,
     NoSuchService,
     NotConfigured,
     NotInstalled,
@@ -12,7 +12,7 @@ from pysysctllib.exc import (
 
 def test_returncodes_map_exports_known_systemctl_exceptions():
     assert Exceptions == {
-        1: GenricError,
+        1: GenericError,
         4: NoSuchService,
         5: NotInstalled,
         6: NotConfigured,

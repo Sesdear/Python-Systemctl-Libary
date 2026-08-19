@@ -1,4 +1,4 @@
-class GenricError(Exception):
+class GenericError(Exception):
     """Genric error. More often means, what serice down in start."""
     pass
 class NoSuchService(Exception):
@@ -22,7 +22,7 @@ class FileNotFound(Exception):
     pass
 
 Exceptions: dict = {
-    1: GenricError,
+    1: GenericError,
     4: NoSuchService,
     5: NotInstalled,
     6: NotConfigured,

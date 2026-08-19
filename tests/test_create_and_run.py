@@ -4,7 +4,7 @@ import pytest
 
 from pysysctllib import Systemd, Systemctl
 from pysysctllib.models import UnitModel, UnitPathType
-from pysysctllib.exc import NoSuchService, GenricError
+from pysysctllib.exc import NoSuchService, GenericError
 
 
 SERVICE_NAME = "test-1.service"
@@ -144,7 +144,7 @@ class TestCreateThenStart:
     def test_start_raises_generic_error_on_returncode_1(self, fake_sudo):
         fake_sudo.queue_error(returncode=1)
 
-        with pytest.raises(GenricError):
+        with pytest.raises(GenericError):
             Systemctl(SERVICE_NAME).start()
 
     def test_start_reraises_unknown_returncode(self, fake_sudo):
