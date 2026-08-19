@@ -1,9 +1,12 @@
-from pysysctllib.models import StatusModel, UnitModel
+from pysysctllib.models import StatusModel, UnitModel, UnitPathType
 
 class _Unit:
     def create(self, unit_model: UnitModel):
         from pysysctllib.modules.systemd.unit.create import create
         return create(unit_model)
+    def delete(self, unit_filename: str, unit_path_type: UnitPathType = UnitPathType.SYSTEM):
+        from pysysctllib.modules.systemd.unit.delete import delete
+        return delete(unit_filename=unit_filename, unit_path_type=unit_path_type)
 
 
 class Systemd:

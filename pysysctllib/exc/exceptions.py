@@ -1,27 +1,25 @@
 class GenricError(Exception):
     """Genric error. More often means, what serice down in start."""
-    code: int = 1
+    pass
 class NoSuchService(Exception):
     """Serice with follow name doesn't exist in system (Does not exist `.service` file)"""
-    code: int = 4
+    pass
 class NotInstalled(Exception):
     """Program or configuration of service ot installed"""
-    code: int = 5
+    pass
 class NotConfigured(Exception):
     """Service not configured"""
-    code: int = 6
+    pass
 class NotRunningOrRefused(Exception):
     """Link to program not work or request to start rejected by manager"""
-    code: int = 7
+    pass
 # PolicyKit Exceptions
 class PermissionError(Exception):
     """Dont have permissons"""
-    code: int = 126
+    pass
 class FileNotFound(Exception):
-    """Starting file not found"""
-    code: int = 127
-class FileExistsError(Exception):
-    code: int = 17
+    """File not found"""
+    pass
 
 Exceptions: dict = {
     1: GenricError,
