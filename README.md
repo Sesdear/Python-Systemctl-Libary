@@ -85,7 +85,7 @@ def create_model()
   return model
 
 sysd = Systemd()
-sysctl = Systemctl(test.service)
+sysctl = Systemctl("test.service")
 model = create_model()
 try: 
   if sysd.unit.create(model):
