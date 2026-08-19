@@ -64,7 +64,7 @@ except PermissionError as e:
 ```
 ### Create new service
 ```python
-from pysysctllib import Sysremctl, Systemd
+from pysysctllib import Systemctl, Systemd
 from pysysctllib.exc import PermissionError
 from pysysctllib.models import UnitModel, UnitPathType
 from logging import info, error
