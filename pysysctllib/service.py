@@ -1,4 +1,4 @@
-from pysysctllib.models import StatusModel, UnitModel, UnitPathType
+from pysysctllib.models import StatusModel, UnitModel, UnitPathType, ConfigModel
 
 class _Unit:
     def create(self, unit_model: UnitModel):
@@ -7,6 +7,12 @@ class _Unit:
     def delete(self, unit_filename: str, unit_path_type: UnitPathType = UnitPathType.SYSTEM):
         from pysysctllib.modules.systemd.unit.delete import delete
         return delete(unit_filename=unit_filename, unit_path_type=unit_path_type)
+    def read(self, unit_filename: str, unit_path_type: UnitPathType = UnitPathType.SYSTEM):
+        from pysysctllib.modules.systemd.unit.read import read
+        return read(unit_filename=unit_filename, unit_path_type=unit_path_type)
+    def write(self, config_model: ConfigModel):
+        from pysysctllib.modules.systemd.unit.write import write
+        return write(config_model=config_model)
 
 
 class Systemd:
